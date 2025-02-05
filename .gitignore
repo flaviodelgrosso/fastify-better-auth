@@ -1,0 +1,12 @@
+node_modules
+.eslintcache
+.nyc_output
+coverage
+
+# JetBrains IDEs
+.idea
+# Visual Studio Code
+.vscode
+
+# OS X
+.DS_Store

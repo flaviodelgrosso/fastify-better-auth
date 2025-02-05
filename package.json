@@ -1,0 +1,71 @@
+{
+  "name": "fastify-better-auth",
+  "version": "1.0.0",
+  "description": "Fastify plugin for better-auth implementation",
+  "author": "Flavio Del Grosso <flaviodelgrosso@live.it>",
+  "license": "ISC",
+  "type": "module",
+  "main": "index.js",
+  "types": "types/plugin.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "types/*",
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">= 22"
+  },
+  "keywords": [
+    "fastify",
+    "better-auth",
+    "auth",
+    "authentication",
+    "plugin"
+  ],
+  "homepage": "https://github.com/flaviodelgrosso/fastify-better-auth#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaviodelgrosso/fastify-better-auth.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky",
+    "test": "c8 --100 node --test test/**/*.test.js",
+    "test:lcov": "c8 --100 --reporter=lcov node --test test/**/*.test.js",
+    "release": "standard-version",
+    "major": "npm run release -- --release-as major",
+    "minor": "npm run release -- --release-as minor",
+    "patch": "npm run release -- --release-as patch",
+    "push-release": "git push --follow-tags origin master"
+  },
+  "peerDependencies": {
+    "better-auth": "1.x",
+    "fastify": "5.x"
+  },
+  "dependencies": {
+    "fastify-plugin": "^5.0.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "c8": "^10.1.3",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "fastify": "^5.2.0",
+    "globals": "^15.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "nock": "^14.0.0-beta.19",
+    "prettier": "^3.4.2",
+    "standard-version": "^9.5.0"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
+}
