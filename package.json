@@ -1,6 +1,6 @@
 {
   "name": "fastify-better-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fastify plugin for better-auth implementation",
   "author": "Flavio Del Grosso <flaviodelgrosso@live.it>",
   "license": "ISC",
