@@ -10,9 +10,9 @@ const auth = betterAuth({
   }
 })
 
-function buildApp(opts = {}) {
+async function buildApp(opts = {}) {
   const app = Fastify(opts)
-  app.register(plugin, { auth })
+  await app.register(plugin, { auth })
   return app
 }
 

@@ -6,12 +6,13 @@ import * as betterAuthNode from 'better-auth/node'
 describe('plugin tests', () => {
   let app
 
-  before(() => {
-    app = buildApp()
+  before(async () => {
+    app = await buildApp()
   })
 
   test('should register successfully', async t => {
     t.assert.ok(app)
+    t.assert.ok(app.hasDecorator('auth'))
   })
 
   test('should add content type parser', async t => {
