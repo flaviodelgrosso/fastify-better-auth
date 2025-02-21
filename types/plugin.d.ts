@@ -1,6 +1,12 @@
 import { betterAuth } from 'better-auth'
 import type { FastifyPluginAsync } from 'fastify'
 
+declare module 'fastify' {
+  interface FastifyInstance {
+    auth: fastifyBetterAuth.FastifyBetterAuthOptions['auth']
+  }
+}
+
 declare namespace fastifyBetterAuth {
   type FastifyBetterAuthOptions = {
     auth: ReturnType<typeof betterAuth>

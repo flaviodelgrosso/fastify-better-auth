@@ -16,6 +16,8 @@ export function mapHeaders(headers) {
 }
 
 async function betterAuthPlugin(fastify, options) {
+  fastify.decorate('auth', options.auth)
+
   await fastify.register(fastify => {
     const authHandler = toNodeHandler(options.auth)
 

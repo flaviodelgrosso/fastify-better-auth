@@ -43,6 +43,14 @@ export default fp(authPlugin, {
 });
 ```
 
+You can now access the auth instance from the Fastify instance. For example if you want get the current session you can do:
+
+```javascript
+const session = await fastify.auth.api.getSession({
+  headers: fromNodeHeaders(req.headers),
+});
+```
+
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
