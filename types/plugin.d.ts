@@ -1,4 +1,4 @@
-import { betterAuth } from 'better-auth'
+import type { betterAuth, BetterAuthOptions } from 'better-auth'
 import type { FastifyPluginAsync } from 'fastify'
 
 declare module 'fastify' {
@@ -8,8 +8,8 @@ declare module 'fastify' {
 }
 
 declare namespace fastifyBetterAuth {
-  type FastifyBetterAuthOptions = {
-    auth: ReturnType<typeof betterAuth>
+  type FastifyBetterAuthOptions<AuthOptions extends BetterAuthOptions> = {
+    auth: ReturnType<typeof betterAuth<AuthOptions>>
   }
 
   export const fastifyBetterAuth: FastifyBetterAuth
