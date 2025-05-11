@@ -38,31 +38,26 @@ export const auth = betterAuth({
 #### Register the plugin
 
 ```typescript
-import FastifyBetterAuth from 'fastify-better-auth';
 import type { FastifyInstance } from 'fastify';
+import FastifyBetterAuth from 'fastify-better-auth';
 import fp from 'fastify-plugin';
 import auth from './auth.ts';
 
+declare module 'fastify' {
+  export interface FastifyInstance {
+    auth: typeof auth;
+  }
+}
+
 async function authPlugin(fastify: FastifyInstance) {
+  fastify.decorate('auth', auth);
   await fastify.register(FastifyBetterAuth, { auth });
 }
 
 export default fp(authPlugin, {
   name: 'auth-plugin',
 });
-```
 
-or if you are using autoloading:
-
-```typescript
-import FastifyBetterAuth, { type FastifyBetterAuthOptions } from 'fastify-better-auth';
-import auth from './auth.ts';
-
-export const autoConfig: FastifyBetterAuthOptions<typeof auth.options> = {
-  auth,
-};
-
-export default FastifyBetterAuth;
 ```
 
 ### Accessing the Better Auth instance or Session object
@@ -76,17 +71,12 @@ import type { FastifyInstance } from 'fastify';
 import auth, { type Session } from './auth.ts';
 
 declare module 'fastify' {
-  interface FastifyInstance {
-    auth: typeof auth;
-  }
-
   interface FastifyRequest {
     session: Session;
   }
 }
 
 async function authHook(fastify: FastifyInstance) {
-  fastify.decorate('auth', auth);
   fastify.decorateRequest('session');
 
   fastify.addHook('preHandler', async (req, res) => {
