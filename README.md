@@ -17,11 +17,11 @@ npm install fastify-better-auth
 
 ### Usage
 
-```javascript
+#### Create the Better Auth instance
+
+```typescript
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import FastifyBetterAuth from 'fastify-better-auth';
-import fp from 'fastify-plugin';
 
 export const auth = betterAuth({
   trustedOrigins: [env.auth.URL],
@@ -33,8 +33,17 @@ export const auth = betterAuth({
     enabled: true,
   },
 });
+```
 
-async function authPlugin(fastify) {
+#### Register the plugin
+
+```typescript
+import FastifyBetterAuth from 'fastify-better-auth';
+import type { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
+import auth from './auth.ts';
+
+async function authPlugin(fastify: FastifyInstance) {
   await fastify.register(FastifyBetterAuth, { auth });
 }
 
@@ -43,12 +52,57 @@ export default fp(authPlugin, {
 });
 ```
 
-You can now access the auth instance from the Fastify instance. For example if you want get the current session you can do:
+or if you are using autoloading:
 
-```javascript
-const session = await fastify.auth.api.getSession({
-  headers: fromNodeHeaders(req.headers),
-});
+```typescript
+import FastifyBetterAuth, { type FastifyBetterAuthOptions } from 'fastify-better-auth';
+import auth from './auth.ts';
+
+export const autoConfig: FastifyBetterAuthOptions<typeof auth.options> = {
+  auth,
+};
+
+export default FastifyBetterAuth;
+```
+
+### Accessing the Better Auth instance or Session object
+
+If you want to access the auth instance and session you can define an authentication hook like this.
+You can try a working example in my [fastify-forge](https://github.com/flaviodelgrosso/fastify-forge) template.
+
+```typescript
+import { fromNodeHeaders } from 'better-auth/node';
+import type { FastifyInstance } from 'fastify';
+import auth, { type Session } from './auth.ts';
+
+declare module 'fastify' {
+  interface FastifyInstance {
+    auth: typeof auth;
+  }
+
+  interface FastifyRequest {
+    session: Session;
+  }
+}
+
+async function authHook(fastify: FastifyInstance) {
+  fastify.decorate('auth', auth);
+  fastify.decorateRequest('session');
+
+  fastify.addHook('preHandler', async (req, res) => {
+    const session = await fastify.auth.api.getSession({
+      headers: fromNodeHeaders(req.headers),
+    });
+
+    if (!session?.user) {
+      return res.unauthorized('You must be logged in to access this resource.');
+    }
+
+    req.session = session;
+  });
+}
+
+export default authHook;
 ```
 
 ## License
