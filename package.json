@@ -1,16 +1,24 @@
 {
   "name": "fastify-better-auth",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Fastify plugin for better-auth implementation",
   "author": "Flavio Del Grosso",
   "license": "ISC",
   "type": "module",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">= 23.10.0"
   },
-  "keywords": ["fastify", "better-auth", "auth", "authentication", "plugin"],
+  "keywords": [
+    "fastify",
+    "better-auth",
+    "auth",
+    "authentication",
+    "plugin"
+  ],
   "homepage": "https://github.com/flaviodelgrosso/fastify-better-auth#readme",
   "repository": {
     "type": "git",
@@ -51,6 +59,8 @@
     "typescript": "^5.8.3"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": ["biome check --files-ignore-unknown=true"]
+    "{src,test}/**/*.ts": [
+      "biome check --files-ignore-unknown=true"
+    ]
   }
 }
