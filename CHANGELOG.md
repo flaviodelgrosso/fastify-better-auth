@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.0.3](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.0.2...v1.0.3) (2025-05-11)
 
-* removed Fastify module augmentation for the better-auth instance. This was causing issues with the correct inference of additional plugins passed to the betterAuth options. The recommended way now is to create a fastify hook where to define the decorator passing the `typeof` of your betterAuth instance. Check README for more details. We will add a better way to do this in the future.
+* removed Fastify module augmentation for the better-auth instance. This was causing issues with the correct inference of additional plugins passed to the betterAuth options. The recommended way now is to create a fastify hook where to define the decorator passing the `typeof` of your betterAuth instance. Check [here](https://github.com/flaviodelgrosso/fastify-better-auth?tab=readme-ov-file#accessing-the-better-auth-instance-or-session-object) for more details. We will add a better way to do this in the future.
 
 ### [1.0.2](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.0.1...v1.0.2) (2025-04-27)
 
