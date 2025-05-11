@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "files": ["dist"],
   "engines": {
-    "node": ">= 22"
+    "node": ">= 23.10.0"
   },
   "keywords": ["fastify", "better-auth", "auth", "authentication", "plugin"],
   "homepage": "https://github.com/flaviodelgrosso/fastify-better-auth#readme",
@@ -19,9 +19,6 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build",
-    "check": "npx @biomejs/biome check --write ./src/**/*.ts",
-    "lint": "npx @biomejs/biome lint --write ./src/**/*.ts",
-    "format": "npx @biomejs/biome format --write ./src/**/*.ts",
     "prepare": "husky",
     "test": "c8 --100 node --test test/**/*.test.ts",
     "test:lcov": "c8 --100 --reporter=lcov node --test test/**/*.test.ts",
@@ -54,6 +51,6 @@
     "typescript": "^5.8.3"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": "npm run check"
+    "{src,test}/**/*.ts": ["biome check --files-ignore-unknown=true"]
   }
 }
