@@ -2,13 +2,32 @@ import fp from 'fastify-plugin';
 
 import type { BetterAuthOptions, betterAuth } from 'better-auth';
 import { toNodeHandler } from 'better-auth/node';
-import type { FastifyInstance, FastifyReply } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import { mapHeaders } from './headers.ts';
+
+const kAuth = Symbol('betterAuth');
+
+type BetterAuthInstance<AuthOptions extends BetterAuthOptions> = ReturnType<
+  typeof betterAuth<AuthOptions>
+>;
 
 export type FastifyBetterAuthOptions<AuthOptions extends BetterAuthOptions = BetterAuthOptions> = {
-  auth: ReturnType<typeof betterAuth<AuthOptions>>;
+  auth: BetterAuthInstance<AuthOptions>;
 };
 
+/**
+ * @param fastify Fastify instance
+ * @returns Decorator for accessing the BetterAuth instance
+ */
+export function getAuthDecorator<AuthOptions extends BetterAuthOptions = BetterAuthOptions>(
+  fastify: FastifyInstance,
+): BetterAuthInstance<AuthOptions> {
+  return fastify.getDecorator(kAuth);
+}
+
 async function fastifyBetterAuth(fastify: FastifyInstance, options: FastifyBetterAuthOptions) {
+  fastify.decorate(kAuth, options.auth);
+
   await fastify.register((fastify) => {
     const authHandler = toNodeHandler(options.auth);
 
@@ -25,17 +44,6 @@ async function fastifyBetterAuth(fastify: FastifyInstance, options: FastifyBette
       await authHandler(request.raw, reply.raw);
     });
   });
-}
-
-type HttpHeaders = Partial<ReturnType<FastifyReply['getHeaders']>>;
-
-export function mapHeaders(fastifyHeaders: HttpHeaders) {
-  const headers = new Headers();
-  Object.entries(fastifyHeaders).forEach(([key, value]) => {
-    if (value) headers.append(key, value.toString());
-  });
-
-  return headers;
 }
 
 export default fp(fastifyBetterAuth, {

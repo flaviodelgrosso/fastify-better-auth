@@ -3,7 +3,8 @@ import { before, describe, test } from 'node:test';
 
 import * as betterAuthNode from 'better-auth/node';
 import type { FastifyInstance } from 'fastify';
-import { mapHeaders } from '../src/index.ts';
+import { mapHeaders } from '../src/headers.ts';
+import { getAuthDecorator } from '../src/index.ts';
 import { buildApp } from './fixtures/app.ts';
 
 describe('plugin tests', () => {
@@ -15,6 +16,12 @@ describe('plugin tests', () => {
 
   test('should register successfully', async () => {
     assert.ok(app);
+  });
+
+  test('should have better-auth decorator', () => {
+    const auth = getAuthDecorator(app);
+    assert.ok(auth.api);
+    assert.ok(auth.options);
   });
 
   test('should add content type parser', async () => {
