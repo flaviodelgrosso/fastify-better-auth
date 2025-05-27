@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.0.4...v1.1.0) (2025-05-27)
+
+
+### Features
+
+* add `getAuthDecorator` function and decorate fastify instance with betterAuth ([51b79a5](https://github.com/flaviodelgrosso/fastify-better-auth/commit/51b79a5414dfed0c6bc4d21e967fdc22dd6b7592))
+
 ### [1.0.4](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.0.3...v1.0.4) (2025-05-11)
 
 ### [1.0.3](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.0.2...v1.0.3) (2025-05-11)
