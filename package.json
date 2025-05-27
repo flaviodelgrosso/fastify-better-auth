@@ -9,6 +9,9 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "engines": {
     "node": ">= 23.10.0"
   },
