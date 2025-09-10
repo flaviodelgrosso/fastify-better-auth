@@ -1,8 +1,7 @@
-import fp from 'fastify-plugin';
-
 import type { BetterAuthOptions, betterAuth } from 'better-auth';
 import { toNodeHandler } from 'better-auth/node';
 import type { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
 import { mapHeaders } from './headers.ts';
 
 const kAuth = Symbol('betterAuth');
@@ -39,7 +38,10 @@ async function fastifyBetterAuth(fastify: FastifyInstance, options: FastifyBette
       },
     );
 
-    fastify.all('/api/auth/*', async (request, reply) => {
+    /** BetterAuth default base path is `/api/auth`, but it can be overridden in the options */
+    const authBasePath = options.auth.options.basePath ?? '/api/auth';
+
+    fastify.all(`${authBasePath}/*`, async (request, reply) => {
       reply.raw.setHeaders(mapHeaders(reply.getHeaders()));
       await authHandler(request.raw, reply.raw);
     });
