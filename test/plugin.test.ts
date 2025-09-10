@@ -60,9 +60,12 @@ describe('plugin tests', () => {
   test('should call better-auth node handler', async (t) => {
     t.mock.fn(betterAuthNode.toNodeHandler);
 
+    const auth = getAuthDecorator(app);
+    const basePath = auth.options.basePath ?? '/api/auth';
+
     const response = await app.inject({
       method: 'GET',
-      url: '/api/auth/get-session',
+      url: `${basePath}/get-session`,
     });
 
     assert.strictEqual(response.statusCode, 200);
