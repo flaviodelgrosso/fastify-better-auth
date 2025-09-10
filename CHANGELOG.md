@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.1.0...v1.2.0) (2025-09-10)
+
+
+### Features
+
+* allow dynamic auth route `basePath` if provided by betterAuth instance ([#76](https://github.com/flaviodelgrosso/fastify-better-auth/issues/76)) ([c9ba5d2](https://github.com/flaviodelgrosso/fastify-better-auth/commit/c9ba5d2f19350fb39d69c4d229482b6ce4e5a8ac))
+
 ## [1.1.0](https://github.com/flaviodelgrosso/fastify-better-auth/compare/v1.0.4...v1.1.0) (2025-05-27)
 
 
