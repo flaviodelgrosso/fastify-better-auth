@@ -32,13 +32,3 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-  automerge:
-    name: Merge dependabot's PRs
-    needs: test
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: write
-    steps:
-      - uses: fastify/github-action-merge-dependabot@v3
