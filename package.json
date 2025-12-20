@@ -47,7 +47,7 @@
     "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.8",
+    "@biomejs/biome": "2.3.10",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@types/node": "^24.0.1",
